@@ -9,3 +9,5 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('welcome');
 });
+
+Route::resource("/students",\App\Http\Controllers\StudentController::class);
