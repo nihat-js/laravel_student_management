@@ -1,7 +1,7 @@
-@include('layout')
+@include('layouts.app')
 
 @section('content')
-    Hiii
+  Hiii
 @endsection
 
 

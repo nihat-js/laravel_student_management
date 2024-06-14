@@ -15,17 +15,16 @@
 <body class="bg-gray-100 flex">
 <!-- Sidebar -->
 <div class="w-64 bg-gray-800 text-white h-screen fixed flex flex-col">
-    <div class="px-4 py-6 text-2xl font-semibold border-b border-gray-700">
-        MyBrand
-    </div>
-    <nav class="flex-1 px-4 py-6 space-y-4">
-
-        @foreach(["Home" => "/home","Student" => "/student", "Teacher"=> "/teacher", "Enrollment" => "enrollment", "Courses" => "courses"] as $key => $value)
+    <div class="px-4 py-6 text-2xl font-semibold border-b border-gray-700"> MyBrand </div>
+    <nav class="flex-1 px-4 py-6 space-y-4"
+        @foreach(["Home" => "/home",
+                    "Student" => "/students",
+                    "Teacher"=> "/teachers",
+                    "Enrollment" => "enrollments",
+                    "Courses" => "courses"] as $key => $value)
             <a href="{{$value}}" class="block py-2.5 px-4  rounded transition duration-200 hover:bg-gray-700
             {{ request()->is(ltrim($value, '/')) ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700' }}
-          ">
-                {{ $key  }}
-            </a>
+            ">    {{ $key  }}  </a>
         @endforeach
     </nav>
     <div class="px-4 py-6 border-t border-gray-700">
@@ -52,11 +51,56 @@
 
     <!-- Content area -->
     <div class="pt-24 px-6">
-        <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
-        <p class="mb-4">Welcome to your dashboard! Here you can find the latest updates and manage your content.</p>
+        <h1 class="text-3xl font-bold mb-6"> {{ $pageTitle   }}</h1>
+{{--        <p class="mb-4">Welcome to your dashboard! Here you can find the latest updates and manage your content.</p>--}}
         <!-- Your content goes here -->
         @yield('content')
     </div>
 </div>
+
+
+<div id="globalModal" class="fixed inset-0 hidden bg-gray-900 bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white rounded-lg shadow-lg w-1/3 p-6">
+    <div id="modalContent">
+      @stack('modal-content') <!-- Stack for modal content -->
+    </div>
+    <div class="flex justify-end space-x-4 mt-4">
+      <button type="button" id="close" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700 transition">Close</button>
+      <button type="button" id="save" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let globalModal = {
+    add : function () {
+
+
+    }
+    close
+  }
+  let globalModal = document.getElementById('globalModal');
+  let closeModalBtn = document.getElementById('#globalModal close');
+  let openModalBtn = document.querySelector('#openModal');
+
+  openModalBtn?.addEventListener('click', function () {
+    globalModal.classList.remove('hidden');
+  });
+
+  closeModalBtn?.addEventListener('click', function () {
+    globalModal.classList.add('hidden');
+  });
+
+  // document.getElementById('userForm').addEventListener('submit', function (event) {
+  //   event.preventDefault();
+  //   // Implement form submission logic here
+  //   console.log('Form submitted');
+  //   modal.classList.add('hidden');
+  // });
+</script>
+@stack('scripts')
+
+
+
 </body>
 </html>
