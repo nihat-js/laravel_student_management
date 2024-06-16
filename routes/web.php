@@ -1,24 +1,47 @@
 <?php
 
+use App\Http\Middleware\RedirectIfAuthenticated;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-  return \Inertia\Inertia::render('Welcome');
+Route::middleware([RedirectIfAuthenticated::class])->group(function () {
+  Route::get('/auth', function () {
+    return \Inertia\Inertia::render('Auth/Auth');
+  })->name('login');
+  Route::get('/login', function () {
+    return \Inertia\Inertia::render('Auth/Auth');
+  })->name('login');
+  Route::get('/register', function () {
+    return \Inertia\Inertia::render('Auth/Auth');
+  })->name('register');
+
 });
 
-Route::get('/auth', function () {
-  return \Inertia\Inertia::render('Auth/Auth');
+
+Route::middleware('auth')->group(function () {
+
+  Route::get('/dashboard', function () {
+    $user = Auth::user();
+    return \Inertia\Inertia::render('Dashboard', [
+      'user' => [
+        'id' => $user->id,
+        'name' => $user->name,
+        'email' => $user->email,
+        // Add more fields as needed
+      ],
+    ]);
+  })->name('dashboard')->middleware('auth');
 });
 
-//Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-//Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-//
-//Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-//Route::post('/register', [RegisteredUserController::class, 'store']);
-//
-//Route::middleware(['auth', 'verified'])->group(function () {
-//  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-//});
-//
-//Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
+
+
+
+
+Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('registerPost');
+Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'index'])->name('loginPost');
+// Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
