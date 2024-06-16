@@ -34,7 +34,10 @@ Route::middleware('auth')->group(function () {
   })->name('dashboard')->middleware('auth');
 });
 
-
+Route::get('/logout', function () {
+  Auth::logout();
+  return redirect('/login');
+});
 
 
 

@@ -15,8 +15,8 @@
     <div class="flex-1 p-6 overflow-y-auto">
       <header class="flex items-center justify-between">
         <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
-        <button @click="logout"
-          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition">Logout</button>
+        <Link href="logout"
+          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition">Logout</Link>
       </header>
 
       <main class="mt-6">
@@ -90,6 +90,7 @@
 
 <script setup>
 import { Inertia } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
   user: Object
