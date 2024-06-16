@@ -92,8 +92,13 @@
 import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
-  users: Object
+  user: Object
 })
+const recentOrders = [
+  { id: 1, product: 'Product A', amount: '$100' },
+  { id: 2, product: 'Product B', amount: '$150' },
+  { id: 3, product: 'Product C', amount: '$80' },
+];
 
 </script>
 
